@@ -582,6 +582,58 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ======================================================== */}
+      {/* AUTHORIZED BRAND PORTFOLIO CARDS                         */}
+      {/* ======================================================== */}
+      <section className="w-full pt-16 pb-8 bg-white text-slate-900">
+        <div className="w-[95%] max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-center text-center space-y-3 mb-10">
+            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+              Trusted Partners
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
+              Our Authorised Brand Partners
+            </h2>
+            <p className="text-sm sm:text-base text-slate-500 font-medium max-w-2xl">
+              Siddhi Kabel is the certified regional distributor and factory-direct partner for world-leading electrical brands.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {BRANDS.map((brand) => {
+              const bStyle = brandCardStyles[brand.id] || brandCardStyles.partex;
+              return (
+                <a
+                  key={brand.id}
+                  href={`#brand-section-${brand.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById(`brand-section-${brand.id}`);
+                    if (el) {
+                      const yOffset = -80; // Adjust for sticky header
+                      const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                  }}
+                  className={`group relative flex flex-col items-center text-center p-6 sm:p-8 rounded-2xl border transition-all duration-300 overflow-hidden ${bStyle.bg} ${bStyle.border} ${bStyle.strip}`}
+                >
+                  <div className="bg-white w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center shadow-sm border border-white/50 mb-5 relative z-10 group-hover:scale-105 transition-transform duration-300">
+                    <img src={brand.logo} alt={brand.name} className="max-w-[70%] max-h-[70%] object-contain" />
+                  </div>
+                  <h3 className={`text-lg sm:text-xl font-black tracking-tight mb-2 relative z-10 ${bStyle.text}`}>
+                    {brand.name}
+                  </h3>
+                  <p className="text-sm text-slate-600 font-medium relative z-10 leading-snug">
+                    <span className="block font-bold text-slate-400 text-xs mb-0.5 uppercase tracking-wider">{brand.origin}</span>
+                    {brand.description.split('.')[0]}
+                  </p>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
       {/* 1. AUTHORIZED BRAND PORTFOLIOS: CONTINUOUS CATALOG */}
       {/* ======================================================== */}
       <section id="brand-portfolios" className="w-full scroll-mt-24 pt-12 lg:pt-16 pb-12 lg:pb-16 bg-slate-50 border-y border-slate-200 text-slate-900 shadow-sm">
@@ -610,8 +662,8 @@ export const Home: React.FC = () => {
                   {/* Left Side: Text */}
                   <div className="space-y-1 flex-1">
                     <Link to={brandLink} onClick={() => window.scrollTo(0,0)} className="hover:opacity-80 transition-opacity">
-                      <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                        {brand.name.split(" ")[0]} <span className={bStyle.text}>Products</span>
+                      <h3 className={`text-2xl sm:text-3xl font-black tracking-tight ${bStyle.text}`}>
+                        {brand.name.split(" ")[0]} Products
                       </h3>
                     </Link>
                     <p className="hidden sm:block text-sm text-slate-500 font-medium max-w-xl line-clamp-1">{brand.description}</p>
